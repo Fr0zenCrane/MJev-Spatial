@@ -10,9 +10,10 @@ from PIL import Image
 from torch import nn
 
 from .hierarchy import (POINT_NAMES, ROOT_BOX, child_box, decode_point, decode_scalar,
-                        point_path, roi_visible, scalar_interval, scalar_path,
+                        point_path, roi_visible, scalar_fine_bins, scalar_interval, scalar_path,
                         visual_token_boxes)
 from .schema import compile_prompt
+from .numeric_tasks import codebook_for, numeric_prompt
 
 
 def causal_visual_mask(length, visual_types, stages, query_start=0):
@@ -188,7 +189,9 @@ class UnifiedBuilder:
                 f"Which region contains the point?\nOptions:\n{options}\nSelect exactly one option.")
 
     def scalar_prompt(self, inp, root=None):
-        cb = self.codebook
+        cb = codebook_for(inp, self.codebook)
+        if cb.get("unit", "m") != "m":
+            return numeric_prompt(inp, root, cb)
         if root is None:
             options = ["exactly zero meters"]
             options += [f"{lo:g} to {hi:g} meters" for lo, hi in zip(cb["edges_m"], cb["edges_m"][1:])]
@@ -197,9 +200,10 @@ class UnifiedBuilder:
             instruction = "Select the range containing the nonnegative measurement."
         else:
             lo, hi = scalar_interval(root, cb)
-            step = (hi - lo) / cb["fine_bins"]
+            fine = scalar_fine_bins(root, cb)
+            step = (hi - lo) / fine
             options = [f"{lo+i*step:.6g} to {lo+(i+1)*step:.6g} meters"
-                       for i in range(cb["fine_bins"])]
+                       for i in range(fine)]
             instruction = f"Refine the previously selected range {lo:g} to {hi:g} meters."
         text = (f"Question: {inp['question']}\n{instruction} "
                 "Ranges include the lower endpoint and exclude the upper endpoint, "

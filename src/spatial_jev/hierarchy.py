@@ -48,8 +48,24 @@ def decode_point(path):
     return [(box[0] + box[2]) / 2, (box[1] + box[3]) / 2]
 
 
+def scalar_fine_bins(root_choice, codebook):
+    """Refinement cardinality is fixed by the selected root, never by the target."""
+    if not 1 <= root_choice < len(codebook["edges_m"]):
+        raise ValueError("Zero/overflow has no refinement candidates")
+    by_root = codebook.get("fine_bins_by_root")
+    if by_root is not None:
+        if len(by_root) != len(codebook["edges_m"]) - 1:
+            raise ValueError("Refinement counts must cover every positive root")
+        fine = by_root[root_choice - 1]
+    else:
+        fine = codebook["fine_bins"]
+    if type(fine) is not int or not 1 <= fine <= 32:
+        raise ValueError("Refinement counts must be integers in [1, 32]")
+    return fine
+
+
 def scalar_path(value, codebook):
-    edges, fine = codebook["edges_m"], codebook["fine_bins"]
+    edges = codebook["edges_m"]
     if not math.isfinite(value) or value < 0:
         raise ValueError("Invalid nonnegative scalar")
     if value == 0:
@@ -57,6 +73,7 @@ def scalar_path(value, codebook):
     if value > edges[-1]:
         return [len(edges)]  # Explicit overflow, never silently clipped.
     bucket = min(bisect.bisect_right(edges, value) - 1, len(edges) - 2)
+    fine = scalar_fine_bins(bucket + 1, codebook)
     lo, hi = edges[bucket:bucket+2]
     local = min(fine - 1, max(0, int((value - lo) / (hi - lo) * fine)))
     return [bucket + 1, local]
@@ -74,10 +91,31 @@ def decode_scalar(path, codebook):
         return 0.0
     if path[0] == len(codebook["edges_m"]):
         return codebook["overflow_representative_m"]
-    if len(path) != 2 or not 0 <= path[1] < codebook["fine_bins"]:
+    fine = scalar_fine_bins(path[0], codebook)
+    if len(path) != 2 or not 0 <= path[1] < fine:
         raise ValueError("Missing/invalid scalar refinement")
     lo, hi = scalar_interval(path[0], codebook)
-    return lo + (path[1] + .5) * (hi - lo) / codebook["fine_bins"]
+    return lo + (path[1] + .5) * (hi - lo) / fine
+
+
+def decode_scalar_expectation(root_choice, fine_logits, codebook):
+    """Conditional mean of fine-bin centers, T=1, within one argmax coarse root.
+
+    No averaging across coarse roots and no target-dependent decisions. Reserved
+    zero/overflow roots retain their existing exact representatives.
+    """
+    if root_choice in (0, len(codebook["edges_m"])):
+        if len(fine_logits):
+            raise ValueError("Zero/overflow must not have a second-stage distribution")
+        return decode_scalar([root_choice], codebook)
+    fine = scalar_fine_bins(root_choice, codebook)
+    logits = np.asarray(fine_logits, dtype=np.float64)
+    if logits.shape != (fine,) or not np.isfinite(logits).all():
+        raise ValueError("Expectation requires exactly the finite valid fine logits")
+    probabilities = np.exp(logits - logits.max())
+    probabilities /= probabilities.sum()
+    centers = np.asarray([decode_scalar([root_choice, i], codebook) for i in range(fine)])
+    return float(probabilities @ centers)
 
 
 def visual_token_boxes(metadata, image_grids, image_num_crops, patches_per_crop):

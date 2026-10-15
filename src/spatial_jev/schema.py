@@ -5,6 +5,7 @@ import math
 import re
 
 SCHEMA_VERSION = "spatial-decision/v2"
+EXTENDED_SCHEMA_VERSION = "spatial-decision/v3"
 TASKS = ("choice", "scalar", "point")
 UNIT_FACTORS = {"m": 1.0, "meter": 1.0, "meters": 1.0,
                 "cm": 0.01, "centimeter": 0.01, "centimeters": 0.01,
@@ -71,7 +72,7 @@ def canonical_metric_question(question):
 
 
 def validate_record(record, max_choices=32):
-    if record.get("schema_version") != SCHEMA_VERSION:
+    if record.get("schema_version") not in (SCHEMA_VERSION, EXTENDED_SCHEMA_VERSION):
         raise ValueError("unsupported_schema")
     inp = record["input"]
     if not inp["question"].strip() or not inp["media"]:
@@ -88,10 +89,17 @@ def validate_record(record, max_choices=32):
         if target["option_id"] not in ids:
             raise ValueError("target_missing_from_options")
     elif kind == "scalar":
-        if space["unit"] != "m" or target["unit"] != "m":
+        allowed = ("m", "count", "deg") if record["schema_version"] == EXTENDED_SCHEMA_VERSION else ("m",)
+        if space["unit"] not in allowed or target["unit"] != space["unit"]:
             raise ValueError("pilot_scalar_requires_meters")
-        if not math.isfinite(target["value"]) or target["value"] < 0:
+        if isinstance(target["value"], bool) or not math.isfinite(target["value"]) or target["value"] < 0:
             raise ValueError("invalid_scalar")
+        if space["unit"] == "count":
+            if space.get("quantity") != "count" or int(target["value"]) != target["value"] or target["value"] > 1023:
+                raise ValueError("invalid_integer_count")
+        if space["unit"] == "deg":
+            if target["value"] > 360 or not space.get("angle_semantics"):
+                raise ValueError("invalid_angle_semantics_or_range")
     elif kind == "point":
         if len(inp["media"]) != 1:
             raise ValueError("pilot_point_requires_one_image")
@@ -120,7 +128,8 @@ def compile_prompt(inp, permutation=None):
             option_ids.append(option["id"])
         text += "Select exactly one option."
     elif kind == "scalar":
-        text += f"Estimate {space['quantity']}. Return a nonnegative value in meters."
+        unit = {"m": "meters", "count": "count units (an integer)", "deg": "degrees"}[space["unit"]]
+        text += f"Estimate {space['quantity']}. Return a nonnegative value in {unit}."
     elif kind == "point":
         text += ("Return one valid point (x, y) in the original image, normalized to [0, 1]. "
                  "The origin is top-left; x increases rightward and y increases downward.")

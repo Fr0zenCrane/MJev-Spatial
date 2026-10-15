@@ -1,0 +1,10 @@
+{
+  "learning_rate": 5e-6,
+  "weight_decay": 0.01,
+  "batch_size": 1,
+  "gradient_accumulation_steps": 1,
+  "max_steps": 3,
+  "save_every": 3,
+  "precision": "bf16",
+  "freeze_vision": true
+}

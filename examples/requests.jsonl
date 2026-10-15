@@ -1,2 +1,2 @@
-{"media": [{"kind": "image", "uri": "scene.png"}], "question": "Where is the red square relative to the blue circle?", "answer_space": {"kind": "choice", "options": [{"id": "left", "text": "left"}, {"id": "right", "text": "right"}]}}
-{"media": [{"kind": "image", "uri": "scene.png"}], "question": "Point to the blue circle.", "answer_space": {"kind": "point", "coordinate_system": "normalized_xy", "num_points": 1}}
+{"id":"choice-0001","input":{"media":[{"kind":"image","uri":"images/scene.png"}],"question":"Where is the red square relative to the blue circle?","answer_space":{"kind":"choice","options":[{"id":"left","text":"left"},{"id":"right","text":"right"}]}}}
+{"id":"point-0001","input":{"media":[{"kind":"image","uri":"images/scene.png"}],"question":"Point to the blue circle.","answer_space":{"kind":"point","coordinate_system":"normalized_xy","num_points":1}}}
