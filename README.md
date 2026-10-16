@@ -16,7 +16,7 @@ MJev-Spatial is a multimodal decision model for spatial understanding. It turns 
 
 The model is built on Qwen3.5-4B and reuses the backbone's pretrained query and key projections to score candidates. The released readout does not add a separate prediction head. Each decision is completed in one forward pass and produces no answer tokens.
 
-The current model checkpoint is available at [Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B). The paper is [MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](https://arxiv.org/abs/2610.22276).
+The current model checkpoint is available at [mindlab-research/MJev-Spatial-4B](https://huggingface.co/mindlab-research/MJev-Spatial-4B). The paper is [MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](https://arxiv.org/abs/2610.22276).
 
 ![MJev-Spatial overview](assets/figure-1-teaser.png)
 
