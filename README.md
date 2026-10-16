@@ -5,7 +5,7 @@
      width="700">
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
-[![Model](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--Qwen--3.5--4B-yellow)](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)
+[![Model](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--4B-yellow)](https://huggingface.co/mindlab-research/MJev-Spatial-4B)
 [![arXiv](https://img.shields.io/badge/arXiv-2610.22276-b31b1b.svg)](https://arxiv.org/abs/2610.22276)
 
 English · [简体中文](README-zh.md)
