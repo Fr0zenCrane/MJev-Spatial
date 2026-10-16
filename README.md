@@ -2,7 +2,7 @@
 
 <img src="assets/mjev-spatial-title.png"
      alt="MJev-Spatial: System One Spatial Intelligence via Native Attention Matching"
-     width="500">
+     width="350">
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 [![Model](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--4B-yellow)](https://huggingface.co/mindlab-research/MJev-Spatial-4B)
