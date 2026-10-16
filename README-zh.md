@@ -7,7 +7,7 @@
 **通过有限候选决策实现 System 1 多模态空间智能**
 
 [![许可证](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
-[![模型](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--Qwen--3.5--4B-yellow)](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)
+[![模型](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--4B-yellow)](https://huggingface.co/mindlab-research/MJev-Spatial-4B)
 [![arXiv](https://img.shields.io/badge/arXiv-2610.22276-b31b1b.svg)](https://arxiv.org/abs/2610.22276)
 
 [English](README.md) · 简体中文
@@ -18,7 +18,7 @@ MJev-Spatial 是一个用于空间理解的多模态决策模型。它把空间�
 
 模型基于 Qwen3.5-4B，复用主干模型预训练的 query 和 key 投影来为候选项打分。发布版本不额外添加独立的预测头。每次决策只需要一次前向计算，也不会生成答案 token。
 
-当前模型 checkpoint 位于 [Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)。对应论文是 [MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](https://arxiv.org/abs/2610.22276)。
+当前模型 checkpoint 位于 [mindlab-research/MJev-Spatial-4B](https://huggingface.co/mindlab-research/MJev-Spatial-4B)。对应论文是 [MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](https://arxiv.org/abs/2610.22276)。
 
 ![MJev-Spatial 总览](assets/figure-1-teaser.png)
 
@@ -38,10 +38,10 @@ MJev-Spatial 用同一种候选打分接口处理三类输出：
 
 对于决策位置和候选位置，模型读取语言主干产生的 hidden state，并使用最后一个 full-attention block 的原生投影：
 
-\[
+$$
 z_i = \frac{1}{H}\sum_{h=1}^{H}
 \frac{Q_h(h_{\mathrm{decision}})^\top K_h(h_{\mathrm{candidate}})}{\sqrt{d_h}}.
-\]
+$$
 
 发布配置使用最后一个 full-attention 层、原生 Q/K normalization、grouped-query key 对齐和多模态 rotary position encoding。score logits 在当前候选集合上归一化。
 
@@ -80,7 +80,7 @@ pip install -e '.[inference,train]'
 export MJEV_CHECKPOINT=/path/to/mjev-spatial-checkpoint
 ```
 
-模型权重发布在 [Hugging Face](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)，本仓库包含源代码和示例。
+模型权重发布在 [Hugging Face](https://huggingface.co/mindlab-research/MJev-Spatial-4B)，本仓库包含源代码和示例。
 
 ## 运行推理
 
@@ -208,6 +208,22 @@ python scripts/evaluate.py \
 ## 代码范围
 
 本仓库包含模型运行时、基础训练循环、公开评测器、示例和测试。预期使用方式是加载发布模型运行自己的输入，或使用自己的标注记录继续训练。
+
+## 引用
+
+如果本项目对你的研究有帮助，请引用：
+
+```bibtex
+@misc{qin2026mjevspatialspatialintelligencenative,
+  title={MJev-Spatial: System One Spatial Intelligence via Native Attention Matching},
+  author={Luozheng Qin and Yuhan Zhu and Changhai Zhou and Qian Qiao and Jun Gao and Yuhua Zhou and Harry Zhang and Xiangyu Zeng and Yuxuan Liu and Kaijie Chen and Andrew Chen and Pony Ma},
+  year={2026},
+  eprint={2610.22276},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2610.22276},
+}
+```
 
 ## 许可证
 

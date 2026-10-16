@@ -36,10 +36,10 @@ The candidate set is part of the task contract. The model scores only legal cand
 
 For a decision position and a candidate position, the model reads hidden states from the language backbone and applies the final full-attention block's native projections:
 
-\[
+$$
 z_i = \frac{1}{H}\sum_{h=1}^{H}
 \frac{Q_h(h_{\mathrm{decision}})^\top K_h(h_{\mathrm{candidate}})}{\sqrt{d_h}}.
-\]
+$$
 
 The released configuration uses the final full-attention layer, native Q/K normalization, grouped-query-key alignment, and multimodal rotary position encoding. Score logits are normalized over the current candidate set.
 
@@ -68,7 +68,7 @@ The inference and training commands accept a local checkpoint directory. A relea
 export MJEV_CHECKPOINT=/path/to/mjev-spatial-checkpoint
 ```
 
-Model weights are distributed from [Hugging Face](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B); this repository contains the source code and examples.
+Model weights are distributed from [Hugging Face](https://huggingface.co/mindlab-research/MJev-Spatial-4B); this repository contains the source code and examples.
 
 ## Run inference
 
@@ -198,6 +198,22 @@ The basic evaluator reports choice accuracy, scalar error, and point distance/hi
 ## Scope of this repository
 
 This repository contains the model runtime, the basic training loop, a public evaluator, examples, and tests. The intended workflow is to load the released model, run it on your inputs, or continue training it with your own labeled records.
+
+## Citation
+
+If you find this work useful, please cite:
+
+```bibtex
+@misc{qin2026mjevspatialspatialintelligencenative,
+  title={MJev-Spatial: System One Spatial Intelligence via Native Attention Matching},
+  author={Luozheng Qin and Yuhan Zhu and Changhai Zhou and Qian Qiao and Jun Gao and Yuhua Zhou and Harry Zhang and Xiangyu Zeng and Yuxuan Liu and Kaijie Chen and Andrew Chen and Pony Ma},
+  year={2026},
+  eprint={2610.22276},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2610.22276},
+}
+```
 
 ## License
 
