@@ -1,6 +1,9 @@
 <div align="center">
 
-# ![MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](assets/mjev-spatial-title.png)
+<img src="assets/mjev-spatial-title.png"
+     alt="MJev-Spatial: System One Spatial Intelligence via Native Attention Matching"
+     width="900">
+
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
 [![Model](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--Qwen--3.5--4B-yellow)](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)
 [![arXiv](https://img.shields.io/badge/arXiv-2610.22276-b31b1b.svg)](https://arxiv.org/abs/2610.22276)

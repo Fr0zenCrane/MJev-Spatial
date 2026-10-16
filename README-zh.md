@@ -1,6 +1,8 @@
 <div align="center">
 
-# ![MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](assets/mjev-spatial-title.png)
+<img src="assets/mjev-spatial-title.png"
+     alt="MJev-Spatial: System One Spatial Intelligence via Native Attention Matching"
+     width="900">
 
 **通过有限候选决策实现 System 1 多模态空间智能**
 
