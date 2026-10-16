@@ -1,6 +1,6 @@
 <div align="center">
 
-# MJev-Spatial
+# MJEV-SPATIAL: SYSTEM ONE SPATIAL INTELLIGENCE VIA NATIVE ATTENTION MATCHING
 
 **通过有限候选决策实现 System 1 多模态空间智能**
 
@@ -203,29 +203,9 @@ python scripts/evaluate.py \
 
 基础评测器会根据记录中的任务类型报告选择题准确率、数值误差和定位距离/命中指标。
 
-## 设计原则
-
-- **有限候选空间：** 对声明好的候选项排序，而不是生成不受约束的答案文本。
-- **共享打分器：** 选择、数值和区域使用同一套候选打分机制。
-- **粗到细：** 数值和定位通过少量条件决策获得更细的输出分辨率。
-- **结果可检查：** 每个决策阶段都返回分数和路径。
-- **使用自己的数据：** 公开训练接口从带类型的标注记录开始，把数据准备留给使用者自己的工作流。
-
 ## 代码范围
 
 本仓库包含模型运行时、基础训练循环、公开评测器、示例和测试。预期使用方式是加载发布模型运行自己的输入，或使用自己的标注记录继续训练。
-
-## 引用
-
-```bibtex
-@article{qin2026mjevspatial,
-  title   = {MJev-Spatial: System One Spatial Intelligence via Native Attention Matching},
-  author  = {Qin, Luozheng and Zhu, Yuhan and Zhou, Changhai and Qiao, Qian and Gao, Jun and Zhou, Yuhua and Zhang, Harry and Zeng, Xiangyu and Liu, Yuxuan and Chen, Kaijie and Chen, Andrew and Ma, Pony},
-  journal = {arXiv preprint arXiv:2610.22276},
-  year    = {2026},
-  url     = {https://arxiv.org/abs/2610.22276}
-}
-```
 
 ## 许可证
 

@@ -1,6 +1,6 @@
 <div align="center">
 
-# MJev-Spatial
+# MJEV-SPATIAL: SYSTEM ONE SPATIAL INTELLIGENCE VIA NATIVE ATTENTION MATCHING
 
 **System 1 multimodal spatial intelligence through finite-choice decisions**
 
@@ -195,29 +195,9 @@ python scripts/evaluate.py \
 
 The basic evaluator reports choice accuracy, scalar error, and point distance/hit metrics according to the task type present in the input records.
 
-## Design principles
-
-- **Finite candidate spaces:** the model ranks declared candidates instead of producing unconstrained answer text.
-- **Shared scorer:** choices, values, and regions use the same candidate-scoring mechanism.
-- **Coarse-to-fine refinement:** numerical and point outputs gain resolution through a small number of conditional decisions.
-- **Inspectable outputs:** scores and paths are returned for every decision stage.
-- **Bring your own data:** the public training interface starts from typed labeled records and leaves dataset-specific preparation to the user.
-
 ## Scope of this repository
 
 This repository contains the model runtime, the basic training loop, a public evaluator, examples, and tests. The intended workflow is to load the released model, run it on your inputs, or continue training it with your own labeled records.
-
-## Citation
-
-```bibtex
-@article{qin2026mjevspatial,
-  title   = {MJev-Spatial: System One Spatial Intelligence via Native Attention Matching},
-  author  = {Qin, Luozheng and Zhu, Yuhan and Zhou, Changhai and Qiao, Qian and Gao, Jun and Zhou, Yuhua and Zhang, Harry and Zeng, Xiangyu and Liu, Yuxuan and Chen, Kaijie and Chen, Andrew and Ma, Pony},
-  journal = {arXiv preprint arXiv:2610.22276},
-  year    = {2026},
-  url     = {https://arxiv.org/abs/2610.22276}
-}
-```
 
 ## License
 
