@@ -5,7 +5,8 @@
 **System 1 multimodal spatial intelligence through finite-choice decisions**
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
-[![Paper](https://img.shields.io/badge/Paper-MJev--Spatial-blue)](#citation)
+[![Model](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--Qwen--3.5--4B-yellow)](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)
+[![arXiv](https://img.shields.io/badge/arXiv-2610.22276-b31b1b.svg)](https://arxiv.org/abs/2610.22276)
 
 English · [简体中文](README-zh.md)
 
@@ -14,6 +15,8 @@ English · [简体中文](README-zh.md)
 MJev-Spatial is a multimodal decision model for spatial understanding. It turns a spatial question into a finite candidate-selection problem, so the model can make a decision directly instead of generating an answer string and parsing it afterward.
 
 The model is built on Qwen3.5-4B and reuses the backbone's pretrained query and key projections to score candidates. The released readout does not add a separate prediction head. Each decision is completed in one forward pass and produces no answer tokens.
+
+The current model checkpoint is available at [Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B). The paper is [MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](https://arxiv.org/abs/2610.22276).
 
 ![MJev-Spatial overview](assets/figure-1-teaser.png)
 
@@ -65,7 +68,7 @@ The inference and training commands accept a local checkpoint directory. A relea
 export MJEV_CHECKPOINT=/path/to/mjev-spatial-checkpoint
 ```
 
-The checkpoint itself is distributed separately from this source repository.
+Model weights are distributed from [Hugging Face](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B); this repository contains the source code and examples.
 
 ## Run inference
 
@@ -208,11 +211,11 @@ This repository contains the model runtime, the basic training loop, a public ev
 
 ```bibtex
 @article{qin2026mjevspatial,
-  title   = {MJev-Spatial: Towards System One Multimodal Spatial Intelligence},
+  title   = {MJev-Spatial: System One Spatial Intelligence via Native Attention Matching},
   author  = {Qin, Luozheng and Zhu, Yuhan and Zhou, Changhai and Qiao, Qian and Gao, Jun and Zhou, Yuhua and Zhang, Harry and Zeng, Xiangyu and Liu, Yuxuan and Chen, Kaijie and Chen, Andrew and Ma, Pony},
+  journal = {arXiv preprint arXiv:2610.22276},
   year    = {2026},
-  note    = {Preprint},
-  url     = {https://github.com/Fr0zenCrane/MJev-Spatial}
+  url     = {https://arxiv.org/abs/2610.22276}
 }
 ```
 

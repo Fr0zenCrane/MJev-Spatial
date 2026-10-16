@@ -5,7 +5,8 @@
 **通过有限候选决策实现 System 1 多模态空间智能**
 
 [![许可证](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE)
-[![论文](https://img.shields.io/badge/Paper-MJev--Spatial-blue)](#引用)
+[![模型](https://img.shields.io/badge/%F0%9F%A4%97%20Model-MJev--Spatial--Qwen--3.5--4B-yellow)](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)
+[![arXiv](https://img.shields.io/badge/arXiv-2610.22276-b31b1b.svg)](https://arxiv.org/abs/2610.22276)
 
 [English](README.md) · 简体中文
 
@@ -14,6 +15,8 @@
 MJev-Spatial 是一个用于空间理解的多模态决策模型。它把空间问题转化为有限候选项上的选择，因此模型可以直接做出判断，不需要先生成答案字符串再解析。
 
 模型基于 Qwen3.5-4B，复用主干模型预训练的 query 和 key 投影来为候选项打分。发布版本不额外添加独立的预测头。每次决策只需要一次前向计算，也不会生成答案 token。
+
+当前模型 checkpoint 位于 [Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)。对应论文是 [MJev-Spatial: System One Spatial Intelligence via Native Attention Matching](https://arxiv.org/abs/2610.22276)。
 
 ![MJev-Spatial 总览](assets/figure-1-teaser.png)
 
@@ -75,7 +78,7 @@ pip install -e '.[inference,train]'
 export MJEV_CHECKPOINT=/path/to/mjev-spatial-checkpoint
 ```
 
-模型权重与源代码仓库分开发布。
+模型权重发布在 [Hugging Face](https://huggingface.co/Fr0zencr4nE/MJev-Spatial-Qwen-3.5-4B)，本仓库包含源代码和示例。
 
 ## 运行推理
 
@@ -216,11 +219,11 @@ python scripts/evaluate.py \
 
 ```bibtex
 @article{qin2026mjevspatial,
-  title   = {MJev-Spatial: Towards System One Multimodal Spatial Intelligence},
+  title   = {MJev-Spatial: System One Spatial Intelligence via Native Attention Matching},
   author  = {Qin, Luozheng and Zhu, Yuhan and Zhou, Changhai and Qiao, Qian and Gao, Jun and Zhou, Yuhua and Zhang, Harry and Zeng, Xiangyu and Liu, Yuxuan and Chen, Kaijie and Chen, Andrew and Ma, Pony},
+  journal = {arXiv preprint arXiv:2610.22276},
   year    = {2026},
-  note    = {Preprint},
-  url     = {https://github.com/Fr0zenCrane/MJev-Spatial}
+  url     = {https://arxiv.org/abs/2610.22276}
 }
 ```
 
