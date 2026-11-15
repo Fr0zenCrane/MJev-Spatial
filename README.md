@@ -206,7 +206,7 @@ If you find this work useful, please cite:
 ```bibtex
 @misc{qin2026mjevspatialspatialintelligencenative,
   title={MJev-Spatial: System One Spatial Intelligence via Native Attention Matching},
-  author={Luozheng Qin and Yuhan Zhu and Changhai Zhou and Qian Qiao and Jun Gao and Yuhua Zhou and Harry Zhang and Xiangyu Zeng and Yuxuan Liu and Kaijie Chen and Andrew Chen and Pony Ma},
+  author={Luozheng Qin and Yuhan Zhu and Changhai Zhou and Qian Qiao and Jun Gao and Yuhua Zhou and Harry Zhang and Xiangyu Zeng and Yuxuan Liu and Yuxin Lu and Kaijie Chen and Andrew Chen and Pony Ma},
   year={2026},
   eprint={2610.22276},
   archivePrefix={arXiv},
